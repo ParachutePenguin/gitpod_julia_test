@@ -3,7 +3,7 @@ FROM gitpod/workspace-full
 USER gitpod
 
 # Install Julia
-RUN sudo apt-get update
+RUN sudo apt-get update \
     && sudo apt-get install -y \
         build-essential \
         libatomic1 \
