@@ -1,3 +1,5 @@
+using Pkg
+
 Pkg.add("Agents")
 
 using Agents
