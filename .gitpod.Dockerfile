@@ -14,9 +14,9 @@ RUN sudo apt-get update \
         m4 \
         cmake \
         pkg-config \
-        #julia \
+        julia \
     && sudo rm -rf /var/lib/apt/lists/* \
-    && curl -fsSL https://install.julialang.org | sh \
+    # && curl -fsSL https://install.julialang.org | sh \
 
 # Give control back to Gitpod Layer
 USER root
