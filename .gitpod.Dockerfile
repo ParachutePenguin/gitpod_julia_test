@@ -14,8 +14,7 @@ RUN sudo apt-get update \
         m4 \
         cmake \
         pkg-config \
-     sudo rm -rf /var/lib/apt/lists/* \
-     && brew install juliaup
+     sudo rm -rf /var/lib/apt/lists/* 
 
 # Give control back to Gitpod Layer
 USER root
