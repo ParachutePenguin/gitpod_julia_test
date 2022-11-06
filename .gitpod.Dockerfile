@@ -15,7 +15,7 @@ RUN sudo apt-get update \
         cmake \
         pkg-config \
      sudo rm -rf /var/lib/apt/lists/* \
-     && sudo curl -fsSL https://install.julialang.org | sh \
+     && brew install juliaup
 
 # Give control back to Gitpod Layer
 USER root
