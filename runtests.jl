@@ -1,5 +1,8 @@
 using Test
-import MyPackage: myiseven
+#import Pkg
+#Pkg.add("MyPackage")
+import .MyPackage: myiseven
+using .MyPackage
 
 @testset "myiseven" begin
     @test myiseven(1) == false
