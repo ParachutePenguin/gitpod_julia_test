@@ -136,3 +136,16 @@ end
 function mutate(M::GaussianMutation, child)
     return child + randn(length(child))*M.σ
 end
+
+import Random: seed!
+import LinearAlgebra: norm
+seed!(0)
+f = x->norm(x)
+m = 100 #集団のサイズ
+k_max = 10 #反復回数
+population = rand_population_uniform(m, [-3, 3], [3, 3])
+S = TruncationSelection(10) #トップ10を選択
+C = SinglePointCrossover()
+M = GaussianMutation(0.5) # 小さい突然変異確率
+x = genetic_algorithm(f, population, k_max, S, C, M)
+@show x
