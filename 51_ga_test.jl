@@ -35,4 +35,6 @@ using Plots
 population_uniform = rand_population_uniform(1000, [0, 0], [1, 1])
 x = [pt[1] for pt in population_uniform]
 y = [pt[2] for pt in population_uniform]
-scatter(x, y, title="Uniform Distribution")
+#scatter(x, y, title="Uniform Distribution")
+plot = scatter(x, y, title="Uniform Distribution")
+savefig(plot, "uniform_distribution.png")
