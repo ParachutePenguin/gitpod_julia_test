@@ -1,7 +1,10 @@
 import Pkg;
 Pkg.add("Distributions")
 Pkg.add("Plots")
-using Distributions, Plots
+Pkg.add("Random")
+using Distributions, Plots, Random
+
+Random.seed!(0)
 
 # OSSエージェント用の構造体を定義します。フィールドは故障率と累積修復故障数です。
 mutable struct NewMutableOSSAgent
@@ -57,9 +60,22 @@ history_failures, history_resolved_per_step = run_simulation(oss, dev, 1000)
 history_resolved_cumulative = cumsum(history_resolved_per_step)
 
 # 二つのy軸を持つグラフを作成します。
+#=
 p = plot(history_failures, label="Failures per step", title="OSS Development Simulation", xlabel="Time Step", ylabel="Failures & Resolved per step", legend=:top)
 plot!(history_resolved_per_step, label="Resolved per step")
 p2 = twinx()
 plot!(p2, history_resolved_cumulative, label="Cumulative resolved", color=:green, ylabel="Cumulative resolved", legend=:topright)
+=#
 
-display(p)
+
+p = plot(history_failures, label="Failures per step", title="OSS Development Simulation", xlabel="Time Step", ylabel="Failures & Resolved per step", legend=:topright)
+p2 = twinx()
+plot!(p, history_resolved_per_step, label="Resolved per step", legend=(0.75,0.2))
+plot!(p2, history_resolved_cumulative, label="Cumulative resolved", color=:green, ylabel="Cumulative resolved", legend=:bottomright)
+
+# PNGファイルとして保存
+save_path = "_04_plot.png"
+savefig(p, save_path)
+
+# ターミナルでリンクを表示
+println("Plot saved to: ", save_path)
