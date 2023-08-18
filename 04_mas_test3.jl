@@ -7,18 +7,18 @@ using Distributions, Plots, Random
 Random.seed!(0)
 
 # OSSエージェント用の構造体を定義します。フィールドは故障率と累積修復故障数です。
-mutable struct NewMutableOSSAgent
+mutable struct OSSAgent
     failure_rate::Float64
     resolved_failures::Int64
 end
 
 # 開発者エージェント用の構造体を定義します。フィールドは修復した故障数です。
-mutable struct NewDeveloperAgent
+mutable struct DeveloperAgent
     resolved_failures::Int64
 end
 
 # シミュレーションの各ステップを進行させる関数です。
-function step!(oss::NewMutableOSSAgent, dev::NewDeveloperAgent)
+function step!(oss::OSSAgent, dev::DeveloperAgent)
     # OSSエージェントがポアソン分布に従って故障を生成します。
     failures = rand(Poisson(oss.failure_rate))
 
@@ -29,14 +29,14 @@ function step!(oss::NewMutableOSSAgent, dev::NewDeveloperAgent)
 end
 
 # 開発者エージェントが故障を修復する関数です。
-function fix_failures!(oss::NewMutableOSSAgent, dev::NewDeveloperAgent, failures::Int64)
+function fix_failures!(oss::OSSAgent, dev::DeveloperAgent, failures::Int64)
     # OSSエージェントと開発者エージェントの修復数を更新します。
     oss.resolved_failures += failures
     dev.resolved_failures = failures
 end
 
 # シミュレーションを実行する関数です。
-function run_simulation(oss::NewMutableOSSAgent, dev::NewDeveloperAgent, steps::Int64)
+function run_simulation(oss::OSSAgent, dev::DeveloperAgent, steps::Int64)
     history_failures = []
     history_resolved = []
 
@@ -50,8 +50,8 @@ function run_simulation(oss::NewMutableOSSAgent, dev::NewDeveloperAgent, steps::
 end
 
 # 故障率0.1のOSSエージェントと開発者エージェントを作成します。
-oss = NewMutableOSSAgent(0.1, 0)
-dev = NewDeveloperAgent(0)
+oss = OSSAgent(0.1, 0)
+dev = DeveloperAgent(0)
 
 # 1000ステップのシミュレーションを実行します。
 history_failures, history_resolved_per_step = run_simulation(oss, dev, 1000)
