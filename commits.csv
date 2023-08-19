@@ -1,0 +1,124 @@
+sha,author,date,message
+c9fafed9bc8cb0238a775fd4a0680e648c06b5b6,Haibo Huang,2023-08-19T02:51:15Z,"Copy tensor content through the API
+
+PiperOrigin-RevId: 558308631"
+9db029dfd4d0def37c2297aca057c40a0ab5dcac,Gunhyun Park,2023-08-19T01:06:13Z,"Add a transform for cross-replica-sum to all_reduce
+
+At the moment, StableHLO does not have the spec and the interpreter for `cross-replica-sum`. `cross-replica-sum` ops are are essentially `all_reduce` ops with a summation computation, and this pass does a `cross-replica-sum -> all_reduce` conversion.
+
+PiperOrigin-RevId: 558295242"
+36f5660069fa4535c3ee5db4c93abfeb5927b2a8,Anlun Xu,2023-08-19T00:45:01Z,"[xla:gpu] NFC: Better error message for GPU graph update
+
+PiperOrigin-RevId: 558291877"
+a9d44e0001d6feba6b21c14a9fc670864c50d89f,Marat Dukhan,2023-08-18T23:59:19Z,"Fix GitHub export for quantized variable ops tests
+
+PiperOrigin-RevId: 558283652"
+ab6a0ebd307bf55e2a6140ec0948432e587260d5,Eugene Zhulenev,2023-08-18T23:41:08Z,"[xla:gpu2] Add support for lowering lmhlo.case operations
+
+PiperOrigin-RevId: 558279868"
+675255b415073633e20740f42076df01333e3624,Gunhyun Park,2023-08-18T23:34:30Z,"Add a transform for dot to dot_general
+
+At the moment, StableHLO does not have the spec and the interpreter for `dot`. The representation of `dot` ops are a proper subset of `dot_general` ops, and this pass does a `dot -> dot_general` conversion.
+
+PiperOrigin-RevId: 558278427"
+6ebfa9f0b9f6bbfca209fce28d7bce56a505ce1b,Austin Anderson,2023-08-18T23:28:24Z,"Fix missed string replacement
+
+I don't know how I missed this, since I did a big find-and-replace. Very strange.
+
+PiperOrigin-RevId: 558277125"
+013865d064ea37a163451e70ccf27e48b2b6c22c,Doyoung Gwak,2023-08-18T23:21:44Z,"Move Pat to RewritePattern for ReorderFakeQuantPattern, and add an additional condition to prevent to miss required FakeQuant ops
+
+PiperOrigin-RevId: 558275628"
+e9391d9005ee38e0803026eeee34ecbec5995750,Parker Schuh,2023-08-18T23:12:13Z,"Add PjRtTopologyDescription::Serialize(). This returns a serialized version of the topology for use in cache keys.
+
+PiperOrigin-RevId: 558273377"
+82911dffddb58f65a442b884db8b5a0cdb7b57ad,Jieying Luo,2023-08-18T23:05:18Z,"[PJRT C API] Split profiler related C APIs to its own struct, and only initialize it in tpu_tracer.cc.
+
+The goal is to move non-PJRT C API initializations from PJRT plugin common path to TPU specific code path.
+
+Add a tsl_status_helper because status_helper depends on ExecutorApiFn. Also move the dependency of proto_helper to where it is needed to avoid MACRO definition conflict.
+
+The only behavior change with this change is when initializing profiler C APIs fails. Before this change, a tpu client will not be created. After this change, it will only fail when the user uses profiler.
+
+PiperOrigin-RevId: 558271842"
+797f78446f74e4a7da1f7411b87d9c4fc7d258e3,Matt Callanan,2023-08-18T23:01:07Z,"#tf-data-service Record metric for missing default transfer server.
+
+PiperOrigin-RevId: 558270686"
+6856d24a16f400a0d3c2a839e04210418cdc7e71,Gunhyun Park,2023-08-18T22:39:39Z,"Add a transform for create_token to after_all
+
+At the moment, StableHLO does not have the spec and the interpreter for `create_token`. `create_token` are a essentially a special case of `after_all` with no inputs, and this pass makes `create_token -> after_all` conversion.
+
+PiperOrigin-RevId: 558265912"
+4233bcddc18d984ceeae87d6694c53e64301dc1b,Matthias Kramm,2023-08-18T22:23:30Z,"Promote 'unknown side effect' log message from INFO to WARNING.
+
+PiperOrigin-RevId: 558261913"
+49d8609eec3513f92a69dc082d36e14e59b695ff,Subhankar Shah,2023-08-18T21:19:52Z,"[MemorySpaceAssignment] Add compilation flag to always spill buffers from alternate to default memory to check for buffer corruption in the alternate memory by validating against normal compilation results.
+
+PiperOrigin-RevId: 558245375"
+971b54a137ac2a7eb8b204cb1746e2df619ba3bf,Skye Wanderman-Milne,2023-08-18T21:19:49Z,"[JAX] Implement the `stream` argument to jax.Array.__dlpack__ for CUDA GPU
+
+Also implements jax.Array.__dlpack_device__. See
+https://dmlc.github.io/dlpack/latest/python_spec.html
+
+This requires plumbing the raw CUDA stream pointer through PJRT and
+StreamExecutor (since the GPU PJRT implementation is still based on
+SE). This is done via the new PJRT method
+ExternalReference::WaitUntilBufferReadyOnStream.
+
+I haven't plumbed this through the PJRT C API yet, because I'm still
+debating whether this should be part of the main API or a GPU-specific
+extension (plus either way it should probably be its own change).
+
+PiperOrigin-RevId: 558245360"
+2186d2590111cd6e6824c1a244f01cf13c3a93e4,A. Unique TensorFlower,2023-08-18T20:29:03Z,"Update ops-related pbtxt files.
+
+PiperOrigin-RevId: 558232388"
+a1203dd302aed09b0f0fc2a4b5ab3ec55cdf4a66,James Mullenbach,2023-08-18T19:26:13Z,"Update XlaAotOnlyVarHandleOp to match opdef of VarHandleOp (add debug_name).
+
+PiperOrigin-RevId: 558216983"
+912a0c24d9e5f68c53286622814ddfcd9d4c6d80,A. Unique TensorFlower,2023-08-18T19:05:04Z,"Eliminates redundant constraints from the Mixed ILP formulation.
+
+PiperOrigin-RevId: 558211637"
+08f25c85ee91aa5fc80b7c8e181d9928dea55e60,A. Unique TensorFlower,2023-08-18T18:47:10Z,"Add Verification pass for lowering Quantization ops/types
+
+PiperOrigin-RevId: 558206695"
+5777634d62861a3209ef471d72371394fbde2362,A. Unique TensorFlower,2023-08-18T18:46:26Z,"Go: Update generated wrapper functions for TensorFlow ops.
+
+PiperOrigin-RevId: 558206446"
+fa87199c133ece4d7e3f5947cec2ec0a74d2cc50,James Mullenbach,2023-08-18T18:38:43Z,"Add debug_name attr to VarHandleOp to allow visibility of user-defined names in the runtime.
+
+PiperOrigin-RevId: 558204285"
+af602b7c79f73dfb6d1f765f6a7f62af00d4e1cc,A. Unique TensorFlower,2023-08-18T18:18:47Z,"Fix C API support for coordination service.
+
+Previously, the old API assumes that there is no null termination character in the middle of the input. But that assumption is broken if user passes some serialized data (e.g. protobuf to string) which may contain such characters.
+
+This fix allows users to pass in the string size, so that the full string is always passed across the API (as opposed to being truncated).
+
+PiperOrigin-RevId: 558198741"
+2575d31687d2782a9f10cc105f00bcc9eb49d328,Marcello Maggioni,2023-08-18T18:13:30Z,"[XLA] Add a pass to mark every instruction except input and output as manual sharded.
+
+PiperOrigin-RevId: 558197268"
+761478d569ca555e26838c959d799a003788206b,A. Unique TensorFlower,2023-08-18T18:12:18Z,"Force inline all the calls in the module created by a custom call.
+
+PiperOrigin-RevId: 558196979"
+8419c70e2e14b79ad2c514835bf19830050c528e,David Rim,2023-08-18T18:10:09Z,"Fix constraints for arm32 asm in nightly
+
+PiperOrigin-RevId: 558196391"
+e304f337d1484b39ed22a012bf7e85d554330ff3,A. Unique TensorFlower,2023-08-18T18:05:19Z,"Update `HloModuleGroupUtil::VisitTopologicalOrder` to allow it consider the channel instructions as a group.
+
+PiperOrigin-RevId: 558195012"
+8f1181b8994777a2948bbf390f3bc83a648b140f,David Silverstone,2023-08-18T17:55:46Z,"Add bazel macro to include the TF_Status implementation for Tensorflow but only headers when building LibTPU
+
+PiperOrigin-RevId: 558192103"
+d2f38355f71d2f7b704bf9218e9cf8ec1cee24f1,TensorFlower Gardener,2023-08-18T17:50:50Z,"Merge pull request #61619 from angerson:master
+
+PiperOrigin-RevId: 558183664"
+9cba2b2c9dc3e35221ad355d2bc839eb4c4f17d7,Yu Feng,2023-08-18T17:26:10Z,"Use a CPU collective to build the core id.
+
+This is functionally the same, but we no longer need to special case the first
+TPU op. (Except for the MLIR unit tests that do not initialize Mesh::tpu_core_ids)
+
+PiperOrigin-RevId: 558183402"
+c20905bdaf9a64bde8de3425352253947793040b,Juan Martinez Castellanos,2023-08-18T17:24:35Z,"Make 6 targets under tensorflow/core/ have strict dependencies.
+
+PiperOrigin-RevId: 558182990"
