@@ -84,7 +84,8 @@ community = CommunityAgent(0,0)
 history_failures, history_resolved_per_step = run_simulation(oss, dev, community, 1000)
 
 # 修復された故障数の累積履歴を作成します。
-history_resolved_cumulative = cumsum(history_resolved_per_step)
+#history_resolved_cumulative = cumsum(history_resolved_per_step)
+history_resolved_cumulative = history_resolved_per_step
 
 # 二つのy軸を持つグラフを作成します。
 #=
@@ -97,7 +98,7 @@ plot!(p2, history_resolved_cumulative, label="Cumulative resolved", color=:green
 
 p = plot(history_failures, label="Failures per step", title="OSS Development Simulation", xlabel="Time Step", ylabel="Failures & Resolved per step", legend=:topright)
 p2 = twinx()
-plot!(p, history_resolved_per_step, label="Resolved per step", legend=(0.75,0.2))
+#plot!(p, history_resolved_per_step, label="Resolved per step", legend=(0.75,0.2))
 plot!(p2, history_resolved_cumulative, label="Cumulative resolved", color=:green, ylabel="Cumulative resolved", legend=:bottomright)
 
 # PNGファイルとして保存
