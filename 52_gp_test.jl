@@ -15,10 +15,10 @@ end
 struct RouletteWheelSelection <: SelectionMethod end
 
 import Pkg
-#Pkg.add("ExprRules")
-#Pkg.add("TreeView")
-#Pkg.add("Distributions")
-#Pkg.add("Random")
+Pkg.add("ExprRules")
+Pkg.add("TreeView")
+Pkg.add("Distributions")
+Pkg.add("Random")
 
 using ExprRules
 using TreeView
