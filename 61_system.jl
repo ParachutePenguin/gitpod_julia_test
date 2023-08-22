@@ -46,7 +46,8 @@ g = let
     grammar = @grammar begin
         P1 = rand(Uniform(0, 10))
         P2 = rand(Uniform(-10, 10))
-        P = rand(Gamma(P1,P1))
+        P1 = rand(Gamma(P1,P1)) + 1e-5
+        P2 = rand(Normal(P2,P1))
         P = P1
         P = P2
     end
