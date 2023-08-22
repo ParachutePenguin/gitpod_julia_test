@@ -37,7 +37,8 @@ end
 # 使い方の例:
 # 状態遷移関数と観測関数を定義
 transition(x) = 0.5 * x + randn()
-observation(x, y) = pdf(Normal(x, 1), y)
+#observation(x, y) = pdf(Normal(x, 1), y)
+observations(x,y) = pdf(Poisson(x), y)
 
 # 観測データ (ダミー)
 observations = [2.3, 1.9, 2.8, 2.5]
