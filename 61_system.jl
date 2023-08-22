@@ -3,6 +3,7 @@ Pkg.add("ExprRules")
 Pkg.add("TreeView")
 Pkg.add("Distributions")
 Pkg.add("Random")
+Pkg.add("StatsBase")
 
 include("support_code.jl")
 include("Particle_filter.jl") # 粒子フィルタコードを含める
@@ -11,6 +12,7 @@ using ExprRules
 using TreeView
 using Distributions
 using Random
+using StatsBase
 
 abstract type SelectionMethod end
 abstract type CrossoverMethod end
@@ -46,7 +48,7 @@ g = let
     grammar = @grammar begin
         P1 = rand(Uniform(0, 10))
         P2 = rand(Uniform(-10, 10))
-        P1 = rand(Gamma(P1,P1)) + 1e-5
+        P = rand(Gamma(P1,P1))
         P2 = rand(Normal(P2,P1))
         P = P1
         P = P2
@@ -89,7 +91,7 @@ g = let
 
     f = (node) -> begin
         transition_function = (x) -> Core.eval(node, grammar)
-        n_particles = 50
+        n_particles = 100
         #initial_distribution = Normal(0, 1)
         initial_distribution = Uniform(-10, 10)
         estimates, marginal_log_likelihoods = particle_filter(n_particles, initial_distribution, transition_function, observation, observations)
@@ -109,7 +111,7 @@ g = let
     Random.seed!(1)
     m = 1000
     population = [rand(RuleNode, grammar, :P) for i in 1:m]
-    k_max = 20
+    k_max = 10
     #
 
     # 粒子フィルタでの観測データの使用
