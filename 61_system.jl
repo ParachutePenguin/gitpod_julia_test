@@ -14,21 +14,26 @@ using Distributions
 using Random
 using StatsBase
 
+# 選択、交叉、突然変異のための抽象型定義
 abstract type SelectionMethod end
 abstract type CrossoverMethod end
 abstract type MutationMethod end
 
+# トランケーション選択
 struct TruncationSelection <: SelectionMethod
     k::Int
 end
 
+# ルーレットホイール選択
 struct RouletteWheelSelection <: SelectionMethod end
 
+# 木構造の交叉
 struct TreeCrossover <: CrossoverMethod
     grammar::Grammar
     max_depth::Int
 end
 
+# 木構造の突然変異
 struct TreeMutation <: MutationMethod
     grammar::Grammar
     p::Float64

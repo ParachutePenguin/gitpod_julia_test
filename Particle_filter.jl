@@ -33,7 +33,7 @@ function particle_filter(n_particles::Int, initial_distribution, transition_func
 
     return estimates
 end
-
+#=
 # 使い方の例:
 # 状態遷移関数と観測関数を定義
 transition(x) = 0.5 * x + randn()
@@ -49,3 +49,4 @@ initial_distribution = Normal(0, 1)
 estimates = particle_filter(n_particles, initial_distribution, transition, observation, observations)
 
 println("Estimates: ", estimates)
+=#
