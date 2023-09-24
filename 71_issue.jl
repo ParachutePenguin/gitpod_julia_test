@@ -2,13 +2,18 @@ using GitHub
 using Dates
 using CSV
 
+token = ""
+GitHub.authenticate(token)
+const AUTH = GitHub.OAuth2(token)
+
 function fetch_issue_data(repo_name)
     # リポジトリのデータを取得
-    repo = repository(repo_name)
+    #repo = repository(repo_name)
+    repo = GitHub.repos(repo_name;auth = AUTH)
     repo_created_at = Date(repo.created_at)
 
     # Issueのデータを取得
-    issues = issues(repo_name)
+    issues = issues(repo_name;auth=AUTH)
     issue_data = []
 
     for (i, issue) in enumerate(issues)
