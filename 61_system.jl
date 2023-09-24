@@ -94,6 +94,21 @@ g = let
         return child
     end
 
+    function Nmutate(M::TreeMutation, a)
+        child = deepcopy(a)
+        if rand() < M.p
+            loc = sample(NodeLoc, child)
+            typ = return_type(M.grammar, get(child, loc).ind)
+            subtree = rand(RuleNode, M.grammar, typ)
+            
+            if is_valid_node(subtree, M.grammar)
+                child = insert!(child, loc, subtree)
+            end
+        end
+        return child
+    end
+    
+
     f = (node) -> begin
         transition_function = (x) -> Core.eval(node, grammar)
         n_particles = 100
