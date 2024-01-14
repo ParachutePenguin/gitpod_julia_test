@@ -2,7 +2,7 @@ import requests
 import pandas as pd
 
 # アクセストークンの設定（セキュリティのため、トークンは直接コードに埋め込まないでください）
-access_token = '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'
+access_token = ''
 csv_file_name = 'tensorflow_commits.csv'
 
 # GitHubリポジトリのURL
